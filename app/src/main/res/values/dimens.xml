@@ -11,5 +11,9 @@
     <dimen name="tiny_padding">4dp</dimen>
     <dimen name="notification_counter_corner">15dp</dimen>
     <dimen name="caption_text">12sp</dimen>
+  <dimen name="recycler_view_image_size">60dp</dimen>
+  <dimen name="medium_margin">16dp</dimen>
+  <dimen name="small_margin">8dp</dimen>
+  <dimen name="details_image_size">120dp</dimen>
 
 </resources>
