@@ -5,17 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context="cvdevelopers.takehome.ui.userdetails.UserDetailsFragment">
-  <androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbar"
-    android:theme="@style/FragmentToolbarStyle"
-    android:minHeight="?attr/actionBarSize"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:titleTextColor="@android:color/white"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent">
-  </androidx.appcompat.widget.Toolbar>
+  <include layout="@layout/toolbar" />
 
   <ImageView
     android:id="@+id/details_image"

@@ -7,21 +7,24 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 import android.util.Log
-import cvdevelopers.takehome.ui.userlist.UserDisplayData
-import cvdevelopers.takehome.ui.userlist.UserDisplayDataNormal
-import cvdevelopers.takehome.ui.userlist.UserDisplayDataReversed
-import java.util.*
+import cvdevelopers.takehome.cache.dao.ClientCacheDao
+import cvdevelopers.takehome.datarepository.UserDataRepository
 
-class ClientDataSource @Inject constructor(
-    private val randomUserApiEndpoint: RandomUserApiEndpoint
-) : PageKeyedDataSource<Int, UserDisplayData>() {
+class ClientDataSource constructor(
+    private val randomUserApiEndpoint: RandomUserApiEndpoint,
+    private val userCacheDao: ClientCacheDao
+) : PageKeyedDataSource<Int, Client>() {
 
   private val compositeDisposable = CompositeDisposable()
 
-  override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, UserDisplayData>) {
+  override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Client>) {
     randomUserApiEndpoint.getClient("1", params.requestedLoadSize.toString())
         .map { it.results }
-        .map { it.map { it.toDisplayData() } }
+            .doOnEvent { list, error ->
+                if (error == null) {
+                    userCacheDao.insertClientList(list).subscribe()
+                }
+            }
         .subscribe({
           callback.onResult(it, null, 2)
         }, {
@@ -29,10 +32,14 @@ class ClientDataSource @Inject constructor(
         }).addTo(compositeDisposable)
   }
 
-  override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, UserDisplayData>) {
+  override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Client>) {
     randomUserApiEndpoint.getClient(params.key.toString(), params.requestedLoadSize.toString())
         .map { it.results }
-        .map { it.map { it.toDisplayData() } }
+            .doOnEvent { list, error ->
+                if (error == null){
+                    userCacheDao.insertClientList(list).subscribe()
+                }
+            }
         .subscribe({
           callback.onResult(it, params.key+1)
         }, {
@@ -40,22 +47,8 @@ class ClientDataSource @Inject constructor(
         }).addTo(compositeDisposable)
   }
 
-  override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, UserDisplayData>) {
+  override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Client>) {
 
   }
-
-  private fun Client.toDisplayData() = if (Random().nextBoolean()) UserDisplayDataNormal(
-      fullName = "${name.first} ${name.last}",
-      imageUrl = picture.thumbnail,
-      onClick = { }
-  ) else
-    UserDisplayDataReversed(
-        fullName = "${name.first} ${name.last}",
-        imageUrl = picture.thumbnail,
-        onClick = { }
-    )
-
-  fun clearSubscriptions(){
-    compositeDisposable.clear()
-  }
+    
 }

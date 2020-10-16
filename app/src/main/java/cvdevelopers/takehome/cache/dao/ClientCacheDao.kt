@@ -1,9 +1,6 @@
 package cvdevelopers.takehome.cache.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import cvdevelopers.takehome.models.Client
 import io.reactivex.Completable
 import io.reactivex.Maybe
@@ -14,7 +11,7 @@ import io.reactivex.Single
 @Dao
 interface ClientCacheDao {
 
-  @Insert
+  @Insert(onConflict = OnConflictStrategy.IGNORE)
   fun insertClientList(clientList: List<Client>): Completable
 
   @Query("SELECT * FROM client")

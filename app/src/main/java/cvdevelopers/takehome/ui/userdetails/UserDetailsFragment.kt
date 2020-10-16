@@ -2,11 +2,11 @@ package cvdevelopers.takehome.ui.userdetails
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -14,9 +14,8 @@ import cvdevelopers.githubstalker.R
 import cvdevelopers.takehome.LuminaryTakeHomeApplication
 import cvdevelopers.takehome.dagger.vm.ViewModelFactory
 import cvdevelopers.takehome.utils.image.ImageLoader
+import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.user_details_fragment.*
-import kotlinx.android.synthetic.main.user_details_fragment.toolbar
-import kotlinx.android.synthetic.main.user_list_fragment.*
 import javax.inject.Inject
 
 class UserDetailsFragment : Fragment() {
@@ -51,6 +50,8 @@ class UserDetailsFragment : Fragment() {
       toolbar.title = it.fullName
     })
     viewModel.fetchDataForUser(navArgs<UserDetailsFragmentArgs>().value.userEmail)
+    toolbar.setNavigationIcon(R.drawable.ic_arrow_left_white)
+    (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
   }
 

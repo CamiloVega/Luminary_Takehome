@@ -15,9 +15,10 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
+import java.util.*
 
 class UserListViewModel @Inject constructor(
-    private val userDataSourceFactory: UserDataSourceFactory
+        private val userDataRepository: UserDataRepository
 ) : ViewModel() {
 
   private val userListLiveData = MutableLiveData<List<UserDisplayData>>()
@@ -34,31 +35,20 @@ class UserListViewModel @Inject constructor(
         .setInitialLoadSizeHint(10)
         .setEnablePlaceholders(true)
         .build()
-    listLiveData = LivePagedListBuilder<Int, UserDisplayData>(userDataSourceFactory, config).build()
+    listLiveData = LivePagedListBuilder<Int, UserDisplayData>(
+            userDataRepository.getUserDataSourceFactory()
+                    .map { it.toDisplayData() }
+            , config).build()
 
-//    userDataRepository.getUsers()
-//        .map { it.map {user ->
-//          user.toDisplayData()
-//        }
-//        }
-//        .subscribe ({
-//          userListLiveData.postValue(it)
-//          Log.d("UserListViewModel", "List = ${it}")
-//        },{
-//          Log.e("UserListViewModel", "Error observing users", it)
-//        }).addTo(disposable)
-//    userDataRepository.getNumberOfUsersInCache()
-//        .flatMapCompletable {
-//          if (it > 0){
-//            Completable.complete()
-//          } else {
-//            userDataRepository.fetchAndCacheUsers()
-//          }
-//        }
-//        .subscribe({},{
-//          Log.e("UserListViewModel", "Error fetching users", it)
-//        }).addTo(disposable)
   }
+
+  private fun Client.toDisplayData() = UserDisplayData(
+          fullName = "${name.first} ${name.last}",
+          imageUrl = picture.thumbnail,
+          onClick = {
+            navigateLiveData.onNext(email)
+          }
+  )
 
   override fun onCleared() {
     disposable.clear()
@@ -66,10 +56,8 @@ class UserListViewModel @Inject constructor(
   }
 
   fun refreshUserData() {
-//    userDataRepository.fetchAndCacheUsers()
-//        .subscribe({},{
-//          Log.e("UserListViewModel", "Error refreshUserData", it)
-//        })
+      userDataRepository.refreshUserDataSourceFactory()
+
   }
 
 }
