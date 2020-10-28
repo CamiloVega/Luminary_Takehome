@@ -1,14 +1,12 @@
 <resources>
-    <string name="app_name">Luminary Take Home</string>
+    <string name="app_name">Random Users Exercise</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="fetch_data">Fetching Data</string>
     <string name="error">Error</string>
 
     <string name="fetch_organization">Fetching Organization</string>
     <string name="fetch_user">Fetching User</string>
-
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod turpis mi, vel scelerisque augue consequat ac. Donec blandit condimentum magna vitae consequat. Ut eget sodales enim, eu sodales nulla. Quisque fermentum sed velit nec semper. Donec enim velit, bibendum a volutpat consectetur, auctor sit amet risus. Fusce suscipit felis in gravida varius. Vestibulum gravida, leo non viverra vehicula, neque felis sagittis neque, facilisis aliquet magna justo vel massa. Ut rutrum varius diam, sed maximus mauris. Nunc lorem tortor, ullamcorper sed nisl eu, tristique feugiat eros. Fusce sit amet metus bibendum risus cursus laoreet ac ac eros.</string>
     <string name="search">Search</string>
 </resources>

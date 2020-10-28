@@ -1,10 +1,1 @@
 /build
-/app/src/main/java/cvdevelopers/githubstalker
-/src/main/res/layout/fragment_toolbar.xml
-/src/main/res/layout/fragment_user_list.xml
-/src/main/java/cvdevelopers/githubstalker/ui/mvp/model/MainActivityModel.kt
-/src/main/java/cvdevelopers/githubstalker/ui/mvp/presenter/MainActivityPresenter.kt
-/src/main/res/layout/user_cell_view_layout.xml
-/src/main/java/cvdevelopers/githubstalker/ui/adapters/UserListAdapter.kt
-/src/main/java/cvdevelopers/githubstalker/ui/fragments/UserListFragment.kt
-/src/main/java/cvdevelopers/githubstalker/ui/cells/UserViewHolder.kt

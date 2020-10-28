@@ -1,4 +1,4 @@
-package cvdevelopers.takehome.dagger
+package cvdevelopers.takehome.dagger.modules
 
 import android.app.Application
 import cvdevelopers.takehome.cache.TakehomeDatabase

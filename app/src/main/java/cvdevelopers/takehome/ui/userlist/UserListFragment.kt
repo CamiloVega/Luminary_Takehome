@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cvdevelopers.githubstalker.R
-import cvdevelopers.takehome.LuminaryTakeHomeApplication
+import cvdevelopers.takehome.MainActivity
 import cvdevelopers.takehome.dagger.vm.ViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -38,7 +38,7 @@ class UserListFragment : Fragment() {
     private lateinit var viewModel: UserListViewModel
 
     override fun onAttach(context: Context) {
-        (context.applicationContext as LuminaryTakeHomeApplication).appComponent.inject(this)
+        (activity as MainActivity).activityComponent.fragmentComponent().create().inject(this)
         super.onAttach(context)
         viewModel = ViewModelProvider(this, viewModelFactory).get(UserListViewModel::class.java)
     }

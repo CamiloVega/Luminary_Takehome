@@ -1,13 +1,13 @@
-package cvdevelopers.takehome.dagger
+package cvdevelopers.takehome.dagger.modules
 
 import android.app.Application
-import cvdevelopers.takehome.LuminaryTakeHomeApplication
+import cvdevelopers.takehome.TakeHomeApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val app: LuminaryTakeHomeApplication) {
+class ApplicationModule(private val app: TakeHomeApplication) {
 
     @Provides
     @Singleton

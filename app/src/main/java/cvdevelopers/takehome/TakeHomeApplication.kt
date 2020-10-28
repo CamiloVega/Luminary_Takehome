@@ -1,11 +1,12 @@
 package cvdevelopers.takehome
 
 import android.app.Application
-import cvdevelopers.takehome.dagger.ApplicationComponent
-import cvdevelopers.takehome.dagger.ApplicationModule
-import cvdevelopers.takehome.dagger.DaggerApplicationComponent
+import com.facebook.stetho.Stetho
+import cvdevelopers.takehome.dagger.components.ApplicationComponent
+import cvdevelopers.takehome.dagger.components.DaggerApplicationComponent
+import cvdevelopers.takehome.dagger.modules.ApplicationModule
 
-class LuminaryTakeHomeApplication : Application() {
+class TakeHomeApplication : Application() {
 
     val appComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent
@@ -17,6 +18,7 @@ class LuminaryTakeHomeApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         appComponent.inject(this);
+        Stetho.initializeWithDefaults(this)
     }
 
 }

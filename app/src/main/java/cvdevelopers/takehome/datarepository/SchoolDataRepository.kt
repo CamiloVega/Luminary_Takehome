@@ -18,14 +18,6 @@ class UserDataRepository @Inject constructor(
     fun getUsers() =
             userCacheDao.getAllClients()
 
-    //          .do
-//      randomUserApiEndpoint.getClient("1").map { it.results }
-//          .doOnEvent { list, error ->
-//            if (error != null) {
-//              userCacheDao.insertClientList(list)
-//            }
-//          }
-
     fun getUserDataSourceFactory() = userDataSourceFactory
 
     fun fetchAndCacheUsers() = randomUserApiEndpoint.getClient("1")
@@ -38,7 +30,6 @@ class UserDataRepository @Inject constructor(
     private fun clearCacheAndInsertUsers(userList: List<Client>) = userCacheDao.clearCache()
             .andThen(userCacheDao.insertClientList(userList))
 
-    fun getNumberOfUsersInCache() = userCacheDao.getNumberOfUsersInCache().subscribeOn(Schedulers.io())
     fun getUserForEmail(userEmail: String): Maybe<Client> = userCacheDao.getUserForEmail(userEmail).subscribeOn(Schedulers.io())
 
     fun refreshUserDataSourceFactory() {
